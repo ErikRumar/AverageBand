@@ -8,6 +8,10 @@ from playsound import playsound
 tempo_set = 120
 tempo = 1 / (float(tempo_set / 60))
 
+with open("files.txt", "r", encoding= "utf8") as files:
+    for line in files.readlines():
+        
+
 
 def check_int(string):
     string = str(string)
