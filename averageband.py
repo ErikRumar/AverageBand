@@ -3,15 +3,57 @@ import time
 from threading import Thread
 from threading import *
 from playsound import playsound
-
+import multiprocessing
 
 tempo_set = 120
 tempo = 1 / (float(tempo_set / 60))
 
-with open("files.txt", "r", encoding= "utf8") as files:
-    for line in files.readlines():
-        
 
+def load_files():
+    two_of_them = 0
+    path = ""
+    sound_name = ""
+    note_name = ""
+
+    add = ""
+
+    sound = False
+    multisound = False
+
+    with open("files.txt", "r", encoding= "utf8") as files:
+        for line in files.readlines():
+
+                for x in line:
+
+                    if x == "-":
+                        sound = True
+                        multisound = False
+                    elif x == ";":
+                        multisound = True
+                        sound = False
+
+                    if x == "\n":
+                        sound = False
+                        multisound = False
+                    if line == "=":
+                        pass
+                        if line == '"':
+                            two_of_them += 1
+                        if two_of_them >= 2:
+                            two_of_them = 0
+                            if sound == True:
+                                sound_name = add - " "
+                            elif multisound == True:
+                                note_name = add - " "
+                            continue
+                    if line == ";":
+                        pass
+                    if line == "_":
+                        pass
+                    add += x
+            
+            sound = False
+            multisound = False
 
 def check_int(string):
     string = str(string)
@@ -63,16 +105,18 @@ def main_menu():
         edit_menu(False)
 
 def main():
+    load_files()
     main_menu()
     
     snare1_o = Sound("snare1", "Snare", "C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/snare1.wav")
     bassdrum1_o = Sound("bassdrum1", "BassDrum", "C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/bassdrum1.wav")
 
-    bassdrum1 = Thread(target=playsound, args=(bassdrum1_o, tempo))
-    snare1 = Thread(target=playsound, args=(snare1_o, tempo))
+    
 
     secs = -tempo
     while True:
+        bassdrum1 = multiprocessing.Process(target=playsound, args=(bassdrum1_o, tempo))
+        snare1 = multiprocessing.Process(target=playsound, args=(snare1_o, tempo))
         secs += tempo
         if secs % 2 == 0:
             bassdrum1.start()

@@ -1,25 +1,55 @@
-bassdrum1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\Drums\bassdrum1.mp3"
-bassdrum2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\Drums\bassdrum2.mp3"
-clap1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\Drums\clap1.mp3"
-clap2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\Drums\clap2.mp3"
-crash1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\Drums\crash1.mp3"
-hihat1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\Drums\hihat1.mp3"
-snare1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\Drums\snare1.mp3"
+-
+bassdrum1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/bassdrum1.mp3"
+bassdrum2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/bassdrum2.mp3"
+clap1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/clap1.mp3"
+clap2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/clap2.mp3"
+crash1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/crash1.mp3"
+hihat1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/hihat1.mp3"
+snare1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Drums/snare1.mp3"
 
 ;EPiano
 
-a1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\a1.wav"
-b1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\b1.wav"
-c1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\c1.wav"
-d1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\d1.wav"
-e1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\e1.wav"
-f1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\f1.wav"
-g1 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\g1.wav"
-a2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\a2.wav"
-b2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\b2.wav"
-c2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\c2.wav"
-d2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\d2.wav"
-e2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\e2.wav"
-f2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\f2.wav"
-g2 = "C:\Users\erik.rumarvaleskog\AverageBandLibrary\EPiano\g2.wav"
-.
+a1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/a1.wav"
+b1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/b1.wav"
+c1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/c1.wav"
+d1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/d1.wav"
+e1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/e1.wav"
+f1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/f1.wav"
+g1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/g1.wav"
+a2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/a2.wav"
+b2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/b2.wav"
+c2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/c2.wav"
+d2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/d2.wav"
+e2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/e2.wav"
+f2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/f2.wav"
+g2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/g2.wav"
+_
+
+;Grandpiano
+
+a1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/a1.wav"
+b1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/b1.wav"
+c1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/c1.wav"
+d1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/d1.wav"
+e1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/e1.wav"
+f1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/f1.wav"
+g1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/g1.wav"
+a2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/a2.wav"
+b2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/b2.wav"
+c2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/c2.wav"
+d2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/d2.wav"
+e2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/e2.wav"
+f2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/f2.wav"
+g2="C:/Users/erik.rumarvaleskog/AverageBandLibrary/GrandPiano/g2.wav"
+_
+
+;Pad1
+
+a1="C:\Users\erik.rumarvaleskog\AverageBandLibrary\Pad1\a1.wav"
+b1="C:\Users\erik.rumarvaleskog\AverageBandLibrary\Pad1\b1.wav"
+c1="C:\Users\erik.rumarvaleskog\AverageBandLibrary\Pad1\c1.wav"
+d1="C:\Users\erik.rumarvaleskog\AverageBandLibrary\Pad1\d1.wav"
+e1="C:\Users\erik.rumarvaleskog\AverageBandLibrary\Pad1\e1.wav"
+f1="C:\Users\erik.rumarvaleskog\AverageBandLibrary\Pad1\f1.wav"
+g1="C:\Users\erik.rumarvaleskog\AverageBandLibrary\Pad1\g1.wav"
+_

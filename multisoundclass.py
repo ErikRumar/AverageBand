@@ -20,11 +20,5 @@ class MultiSound:
 
         for x in self.notes:
             if note == x:
-                pass
-        x = Note("a1", "C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/a1.wav")
-        x.play(x)
-        
-
-x = Note("a1", "C:/Users/erik.rumarvaleskog/AverageBandLibrary/EPiano/a1.wav")
-mixer.init()
-x.play()
+                player = x
+        x.play()

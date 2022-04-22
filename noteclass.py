@@ -2,6 +2,7 @@ import time
 from threading import Thread
 from playsound import playsound
 from pygame import mixer
+import multiprocessing
 
 
 class Note:
@@ -14,6 +15,4 @@ class Note:
         print(self.name)
 
     def play(self):
-        mixer.init()
-        mixer.music.load(self.sound)
-        mixer.music.play()
+        playsound(self.sound)
