@@ -1,2 +1,2 @@
-# AverageBand
+# Sonus
 Musicprogram for music producers
