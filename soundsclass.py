@@ -12,8 +12,7 @@ class Sound:
         self.sound = sound
 
     def __str__(self):
-        print(self.name)
-        print(self.category)
+        return f"sound name {self.name} sound category {self.category} sound path {self.sound}"
 
     def play(self):
         mixer.music.load(self.sound)

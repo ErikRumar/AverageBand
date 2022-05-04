@@ -12,7 +12,7 @@ class Note:
         self.sound = sound
 
     def __str__(self):
-        print(self.name)
+        return f"note name {self.name} note path {self.sound}" 
 
     def play(self):
         playsound(self.sound)

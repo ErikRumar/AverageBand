@@ -7,14 +7,12 @@ from noteclass import Note
 
 class MultiSound:
 
-    def __init__(self, name, category, notes):
+    def __init__(self, name, notes):
         self.name = name
-        self.category = category
         self.notes = notes
 
     def __str__(self):
-        print(self.name)
-        print(self.category)
+        return f"multisound name {self.name} multisound notes {self.notes}"
 
     def play(self, note):
 
