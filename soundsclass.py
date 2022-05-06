@@ -17,3 +17,6 @@ class Sound:
     def play(self):
         mixer.music.load(self.sound)
         mixer.music.play()
+        
+    def get_name(self):
+        return self.name

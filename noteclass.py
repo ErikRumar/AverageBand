@@ -16,3 +16,7 @@ class Note:
 
     def play(self):
         playsound(self.sound)
+
+    def get_name(self):
+        return self.name
+

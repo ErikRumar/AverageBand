@@ -3,9 +3,12 @@ from threading import Thread
 from playsound import playsound
 from pygame import mixer
 import multiprocessing
+from Sonus import sounds, multisounds
 
 
 class Project:
+    global sounds
+    global multisounds
 
     def __init__(self, name, length, tempo, instruments, recordings):
         self.name = name
@@ -119,4 +122,50 @@ class Project:
             beat = (" ") * self.length + "."
             refined_record = ""
         print(string)
+
+    def play_project(self):
+        global sounds
+        global multisounds
+        
+        for bar in range(self.length):
+            
+            count = -1
+            for recording in self.recordings:
+                count += 1
+
+                for w in recording:
+                    list_to_string = list_to_string + w
+
+                for q in list_to_string:
+                    multisound = False
+                    sound = False
+                    if q == ".":
+                        multisound = True
+                        sound = False
+                        break
+                    else:
+                        sound = True
+                if multisound == True:
+                    for x in multisounds:
+                        if self.instruments[count] == x.get_name():
+                            instrument = x
+                            break
+                if sound == True:
+                    for x in sounds:
+                        if self.instruments[count] == x.get_name():
+                            instrument = x
+                            break
+
+                    if multisound == True:
+                        for note in recording:
+                            if int(note[2:]) == bar:
+                                pass
+
+    
+    def get_name(self):
+        return self.name
+
+
+
+
 

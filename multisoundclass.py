@@ -20,3 +20,6 @@ class MultiSound:
             if note == x:
                 player = x
         x.play()
+        
+    def get_name(self):
+        return self.name

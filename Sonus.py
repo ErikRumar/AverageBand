@@ -13,6 +13,8 @@ global multisounds
 
 sounds = []
 multisounds = []
+instruments = []
+notes = []
 
 
 def tempo_to_sec(tempo):
@@ -240,6 +242,7 @@ def main_menu():
     if int(choice) ==2:
         project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(input("project: "))
         project = Project(project_name, project_length, project_tempo, project_instruments, project_recordings)
+        print(project.instruments)
         open_project(project)
 
 def main():
