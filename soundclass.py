@@ -12,13 +12,10 @@ class Sound:
         self.sound = sound
 
     def __str__(self):
-        print(self.name)
-        print(self.category)
+        return f"sound name {self.name} sound category {self.category} sound path {self.sound}"
 
-    def play(self, tempo):
-        mixer.music.load(self.sound)
-        mixer.music.play()
-# 
-#     def stop(self):
-#         while volume > 0:
-#             self.sound = self.sound -1
+    def play(self):
+        playsound(self.sound)
+        
+    def get_name(self):
+        return self.name

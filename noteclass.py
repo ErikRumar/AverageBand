@@ -19,4 +19,7 @@ class Note:
 
     def get_name(self):
         return self.name
+        
+    def get_sound(self):
+        return self.sound
 

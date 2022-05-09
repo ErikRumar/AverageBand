@@ -42,6 +42,6 @@ b1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Pad1/b1.wav"
 c1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Pad1/c1.wav"
 d1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Pad1/d1.wav"
 e1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Pad1/e1.wav"
-f1="C:/Userserik.rumarvaleskog/AverageBandLibrary/Pad1/1.wav"
+f1="C:/Userserik.rumarvaleskog/AverageBandLibrary/Pad1/f1.wav"
 g1="C:/Users/erik.rumarvaleskog/AverageBandLibrary/Pad1/g1.wav"
 _

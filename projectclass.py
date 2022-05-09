@@ -3,12 +3,18 @@ from threading import Thread
 from playsound import playsound
 from pygame import mixer
 import multiprocessing
-from Sonus import sounds, multisounds
+# from Sonus import sounds, multisounds
+import Sonus
+
+global sounds
+global multisounds
+
 
 
 class Project:
     global sounds
     global multisounds
+
 
     def __init__(self, name, length, tempo, instruments, recordings):
         self.name = name
@@ -127,24 +133,33 @@ class Project:
         global sounds
         global multisounds
         
-        for bar in range(self.length):
-            
+        for bar in range(1, self.length+1):
+            print("bar: ", bar)
+            beats = False
+            notes = []
             count = -1
             for recording in self.recordings:
+                # print(recording)
                 count += 1
+                list_to_string = ""
 
-                for w in recording:
-                    list_to_string = list_to_string + w
+                for decide_multi_or_sound in range(1):
 
-                for q in list_to_string:
-                    multisound = False
-                    sound = False
-                    if q == ".":
-                        multisound = True
+                    for w in recording:
+                        list_to_string = list_to_string + w
+
+
+                    for q in list_to_string:
+                        multisound = False
                         sound = False
-                        break
-                    else:
-                        sound = True
+                        if q == ".":
+                            multisound = True
+                            sound = False
+                            break
+                        else:
+                            sound = True
+                    
+
                 if multisound == True:
                     for x in multisounds:
                         if self.instruments[count] == x.get_name():
@@ -156,16 +171,55 @@ class Project:
                             instrument = x
                             break
 
-                    if multisound == True:
-                        for note in recording:
-                            if int(note[2:]) == bar:
-                                pass
+                # print("this is the instrument", instrument.get_name())
+
+
+                if multisound == True:
+                    for xnote in self.recordings[count]:
+                        if int(xnote[3:]) == bar:
+                            notes.append(xnote[:2])
+                # print("these are the notes", notes)
+                if sound == True:
+                    for beat in recording:
+                        if int(beat) == bar:
+                            beats = True
+
+
+                # print("beat", beat, "instrument", instrument.get_name())
+
+                # beat_play.terminate()
+                if multisound == True:
+                    count2 = -1
+                    for note in notes:
+                        count2 += 1
+                        # instrument.play(note)
+                        note_play = multiprocessing.Process(instrument.play(note))
+                        note_play.start()       
+                        note_play.terminate()
+                    # print("____________________________:_____________________________:___________________:_____________________:_________")
+                if beats == True:
+                    # print("playin beat:::::::::::::::::::::::::.")
+                    # instrument.play()
+                    print("player ", instrument.get_name())
+                    beat_play = multiprocessing.Process(instrument.play())
+                    beat_play.start()
+                notes = []
+                beats = False
+            time.sleep(Sonus.tempo_to_sec(self.tempo))
+            print("\n\n")
+
+
 
     
     def get_name(self):
         return self.name
 
 
+#    def synchronize():
+#         global sounds
+#         global multisounds
+#         sounds = Sonus.sounds
+#         multisounds = Sonus.multisounds 
 
 
 

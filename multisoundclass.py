@@ -17,9 +17,10 @@ class MultiSound:
     def play(self, note):
 
         for x in self.notes:
-            if note == x:
+            if note == x.get_name()[len(x.get_name())-2:]:
                 player = x
-        x.play()
-        
+                print("player", player.get_name())
+        player.play()
+
     def get_name(self):
         return self.name

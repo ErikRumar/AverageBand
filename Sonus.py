@@ -1,4 +1,4 @@
-from projectclass import Project
+import projectclass
 from soundclass import Sound
 from multisoundclass import MultiSound
 from noteclass import Note
@@ -15,6 +15,7 @@ sounds = []
 multisounds = []
 instruments = []
 notes = []
+
 
 
 def tempo_to_sec(tempo):
@@ -44,7 +45,6 @@ def load_files():
 
     with open("files.txt", "r", encoding= "utf8") as files:
         for line in files.readlines():
-
             for x in line:
 
                 if x == "-":
@@ -66,20 +66,16 @@ def load_files():
                 if x == '"':
                     two_of_them += 1
                 if two_of_them >= 2:
-                    two_of_them = 0
                     string.replace("=", "")
                     string.replace(" ", "")
                     string.replace('"', "")
                     path = string[2:]
-                    string = ""
 
                 if x == "\n" and naming == True:
                     if multisound == True:
                         multisound_name = string[2:]
                     elif sound == True:
                         category = string[1:]
-                    naming = False
-                    string = ""
                 if x == "\n" and naming == False and note_name != "":
                     if multisound == True:
                         note = Note(multisound_name + "," + note_name, path)
@@ -87,7 +83,7 @@ def load_files():
                         string = ""
                 if x == "\n" and naming == False:
                     if sound == True:
-                        s = Sound(sound_name[1:], category, path)
+                        s = Sound(sound_name, category, path)
                         sounds.append(s)
                 if x == "_":
 
@@ -105,7 +101,17 @@ def load_files():
 
                     sound = False
                     multisound = False
-                string += x
+
+                if naming == True and x == "\n":
+                    naming = False
+                    string = ""
+                    string += x
+                else:
+                    string += x
+
+                if two_of_them >= 2:
+                    string = ""
+                    two_of_them = 0
 
 
 def check_int(string):
@@ -210,14 +216,50 @@ def open_project(project):
     print("\nopen", project)
     project.show_project()
 
-def edit_menu(new):
-    pass
+def edit_menu(project, project_index):
+    menu = 1
+    print("Overlook Menu\n")
+
+    while True:
+        while menu == 1:
+            choice = input("(p)lay or (e)dit, (nothing to return): ")
+            if choice == "p":
+                project.play_project()
+            elif choice.lower() == "e":
+                menu = 2
+                print("Edit Menu\n")
+            elif choice == "":
+                main_menu()
+            else:
+                print("error")
+                time.sleep(0.5)
+        
+        while menu == 2:
+            choice = input("choose instrument(nothing to return): ")
+            if choice == "":
+                menu = 1
+                print("Overlook Menu\n")
+            else:
+                for instrument in project.instruments:
+                    if choice.lower() == instrument.lower():
+                        edit = ""
+                        replace = ""
+                        while check_int(edit) != True or (int(edit) <= 0 and int(edit) >= int(project.length)):
+                            edit = input("place:")
+                        edit = int(edit)
+                        while replace != " " and replace != "_" :
+                            replace = input("replacement: ")
+                with open(f"{project_index}.txt", "w", encoding = "utf8") as project_txt:
+                    print("edit done")
 
 
 
 
 
 def main_menu():
+    global sounds
+    global multisounds
+
     choice = 9999
     print("""
 
@@ -240,13 +282,19 @@ def main_menu():
     if int(choice) == 1:
         edit_menu(True)
     if int(choice) ==2:
-        project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(input("project: "))
-        project = Project(project_name, project_length, project_tempo, project_instruments, project_recordings)
-        print(project.instruments)
+        project_index = input("project: ")
+        project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(project_index)
+        project = projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings)
         open_project(project)
+        edit_menu(project, project_index)
 
 def main():
+    global multisounds
+    global sounds
+
     load_files()
+    projectclass.multisounds = multisounds
+    projectclass.sounds = sounds
     # for y in sounds:
     #     print(y, ":::")
     # print("\n")
