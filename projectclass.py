@@ -106,6 +106,7 @@ class Project:
             
             elif sound == True:
                 for y in x:
+                    print(x, y)
                     beat = beat[: (int(y)-1) ] + "_" + beat[ (int(y)) :]
                 refined_record = f"{beat}\n-------------------------------------------------------------------------------\n"
             
@@ -127,7 +128,7 @@ class Project:
 
             beat = (" ") * self.length + "."
             refined_record = ""
-        print(string)
+        return string
 
     def play_project(self):
         global sounds
@@ -194,8 +195,10 @@ class Project:
                         count2 += 1
                         # instrument.play(note)
                         note_play = multiprocessing.Process(instrument.play(note))
-                        note_play.start()       
+                        note_play.start()
+                        note_play.join()       
                         note_play.terminate()
+                    print("played")
                     # print("____________________________:_____________________________:___________________:_____________________:_________")
                 if beats == True:
                     # print("playin beat:::::::::::::::::::::::::.")
@@ -203,6 +206,8 @@ class Project:
                     print("player ", instrument.get_name())
                     beat_play = multiprocessing.Process(instrument.play())
                     beat_play.start()
+                    beat_play.join()
+                    print("played")
                 notes = []
                 beats = False
             time.sleep(Sonus.tempo_to_sec(self.tempo))

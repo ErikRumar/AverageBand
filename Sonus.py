@@ -149,10 +149,32 @@ def string_to_list(string):
 
     return list
 
+def save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings):
 
-def load_project(project):
+
+    string = (f"""n- {project_name}
+    l- {project_length}
+    t- {project_tempo}
+    i- {project_instruments}
+    """)
+
+    records = ""
+
+    for record in project_recordings:
+        new_recording = ""
+        for element in record:
+            new_recording = new_recording + element + "/"
+        records = records + f"r- {new_recording}\n"
+
+    string = string + records
+
+    with open(f"{project_index}.txt", "w", encoding="utf8") as file:
+        file.write(string)
+
+
+def load_project(project_index):
     
-    with open(f"{project}.txt", "r") as file:
+    with open(f"{project_index}.txt", "r") as file:
         project_name = ""
         project_length = 0
         project_tempo = 0
@@ -205,6 +227,19 @@ def load_project(project):
                     if mode == "r":
                         project_recordings.append(string[2:].split("/"))
 
+                    new_project_recordings = []
+
+                    for record in project_recordings:                       # removing '' that usually becomes included
+                        new_project_record = []
+                        for element in record:
+                            if element == "":
+                                pass
+                            else:
+                                new_project_record.append(element)
+                        new_project_recordings.append(new_project_record)
+
+                    project_recordings = new_project_recordings
+
                 string += char
 
     return project_name, project_length, project_tempo, project_instruments, project_recordings
@@ -214,7 +249,7 @@ def list_of_projects():
 
 def open_project(project):
     print("\nopen", project)
-    project.show_project()
+    print(project.show_project())
 
 def edit_menu(project, project_index):
     menu = 1
@@ -244,13 +279,101 @@ def edit_menu(project, project_index):
                     if choice.lower() == instrument.lower():
                         edit = ""
                         replace = ""
+                        new_note = ""
                         while check_int(edit) != True or (int(edit) <= 0 and int(edit) >= int(project.length)):
-                            edit = input("place:")
+                            edit = input("place: ")
                         edit = int(edit)
-                        while replace != " " and replace != "_" :
+                        while not (replace == " " or replace == "_"):
                             replace = input("replacement: ")
-                with open(f"{project_index}.txt", "w", encoding = "utf8") as project_txt:
+                        while not  (replace.lower() != "a1" or replace.lower() != "b1" or replace.lower() != "c1" or replace.lower() != "d1" or replace.lower() != "e1" or replace.lower() != "f1" or replace.lower() != "g1" or replace.lower() != "a2" or replace.lower() != "b2" or replace.lower() != "c2" or replace.lower() != "d2" or replace.lower() != "e2" or replace.lower() != "f2" or replace.lower() != "g2"):
+                            new_note = input("note: ")
+                        new_note = new_note.lower()
+
+
+                with open(f"{project_index}.txt", "r", encoding = "utf8") as project_txt:
                     print("edit done")
+                    project_name = ""
+                    project_length = 0
+                    project_tempo = 0
+                    project_instruments = []
+                    project_recordings = []
+                    count = 0
+                    for line in project_txt.readlines():
+                        string = ""
+                        for char in line:
+
+                            if string == "":
+                                if char == "n":
+                                    mode = "n"
+
+                                if char == "l":
+                                    mode = "l"
+
+                                if char == "t":
+                                    mode = "t"
+                                
+                                if char == "i":
+                                    mode = "i"
+
+                                if char == "r":
+                                    mode = "r"
+
+                                mode_init = True
+
+                            if mode_init == True:
+                                count += 1
+                                if count >= 3:
+                                    mode_init = False
+                                string += char
+                                continue
+                                
+                            if char == "\n":
+                                
+                                if mode == "n":
+                                    project_name = string[2:]
+
+                                if mode == "l":
+                                    project_length = int(string[2:])
+
+                                if mode == "t":
+                                    project_tempo = int(string[2:])
+
+                                if mode == "i":
+                                    project_instruments = string_to_list(string[2:])
+
+                                if mode == "r":
+                                    project_recordings.append(string[2:].split("/"))
+
+                            string += char
+                    
+                    count2 = -1
+                    for instrument in project_instruments:
+                        count2 += 1
+                        if instrument.lower() == choice.lower():
+                            instrument_index = count2
+                            break
+                    
+                    new_project_record = []
+                    new_project_recordings = []
+
+                    count3 = -1
+                    for record in project_recordings:
+                        count3 += 1
+                        if instrument_index == count3:
+                            count4 = -1
+                            for element in record:
+                                count4 += 1
+                                print("element", element)
+                                if int(element[4:]) == edit and element[:2] == new_note:
+                                    if replace == "_":
+                                        new_project_record.append(f"{new_note}.{edit}")
+                                    elif replace == " ":
+                                        pass
+                                    else:
+                                        new_project_record.append(element)
+                            new_project_recordings.append(new_project_record)
+                    save_project(project_index, project_name, project_length, project_tempo, project_instruments, new_project_recordings)
+                    load_project(project_index)
 
 
 
