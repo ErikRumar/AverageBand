@@ -152,11 +152,11 @@ def string_to_list(string):
 def save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings):
 
 
-    string = (f"""n- {project_name}
-    l- {project_length}
-    t- {project_tempo}
-    i- {project_instruments}
-    """)
+    string = (f"""n-{project_name}
+l-{project_length}
+t-{project_tempo}
+i-{project_instruments}
+""")
 
     records = ""
 
@@ -164,7 +164,7 @@ def save_project(project_index, project_name, project_length, project_tempo, pro
         new_recording = ""
         for element in record:
             new_recording = new_recording + element + "/"
-        records = records + f"r- {new_recording}\n"
+        records = records + f"r-{new_recording}\n"
 
     string = string + records
 
@@ -252,11 +252,14 @@ def open_project(project):
     print(project.show_project())
 
 def edit_menu(project, project_index):
+    global multisounds
+    global sounds
     menu = 1
     print("Overlook Menu\n")
 
     while True:
         while menu == 1:
+            open_project(project)
             choice = input("(p)lay or (e)dit, (nothing to return): ")
             if choice == "p":
                 project.play_project()
@@ -270,10 +273,14 @@ def edit_menu(project, project_index):
                 time.sleep(0.5)
         
         while menu == 2:
-            choice = input("choose instrument(nothing to return): ")
+            open_project(project)
+            choice = input("choose instrument, (n)ew (nothing to return): ")
             if choice == "":
                 menu = 1
                 print("Overlook Menu\n")
+            elif choice.lower() == "n":
+                menu = 3
+                print("Instrument Menu\n")
             else:
                 for instrument in project.instruments:
                     if choice.lower() == instrument.lower():
@@ -285,13 +292,12 @@ def edit_menu(project, project_index):
                         edit = int(edit)
                         while not (replace == " " or replace == "_"):
                             replace = input("replacement: ")
-                        while not  (replace.lower() != "a1" or replace.lower() != "b1" or replace.lower() != "c1" or replace.lower() != "d1" or replace.lower() != "e1" or replace.lower() != "f1" or replace.lower() != "g1" or replace.lower() != "a2" or replace.lower() != "b2" or replace.lower() != "c2" or replace.lower() != "d2" or replace.lower() != "e2" or replace.lower() != "f2" or replace.lower() != "g2"):
+                        while  (new_note.lower() != "a1" and new_note.lower() != "b1" and new_note.lower() != "c1" and new_note.lower() != "d1" and new_note.lower() != "e1" and new_note.lower() != "f1" and new_note.lower() != "g1" and new_note.lower() != "a2" and new_note.lower() != "b2" and new_note.lower() != "c2" and new_note.lower() != "d2" and new_note.lower() != "e2" and new_note.lower() != "f2" and new_note.lower() != "g2"):
                             new_note = input("note: ")
                         new_note = new_note.lower()
 
 
                 with open(f"{project_index}.txt", "r", encoding = "utf8") as project_txt:
-                    print("edit done")
                     project_name = ""
                     project_length = 0
                     project_tempo = 0
@@ -339,12 +345,28 @@ def edit_menu(project, project_index):
                                     project_tempo = int(string[2:])
 
                                 if mode == "i":
-                                    project_instruments = string_to_list(string[2:])
+                                    project_instruments = string_to_list(string[1:])
 
                                 if mode == "r":
                                     project_recordings.append(string[2:].split("/"))
 
                             string += char
+
+                    new_project_recordings = []
+
+                    for record in project_recordings:                                               # removing '' that usually becomes included
+                        new_project_record = []
+                        for element in record:
+                            if element == "":
+                                pass
+                            else:
+                                new_project_record.append(element)
+                        new_project_recordings.append(new_project_record)
+
+                    
+
+                    project_recordings = new_project_recordings
+                    
                     
                     count2 = -1
                     for instrument in project_instruments:
@@ -363,17 +385,60 @@ def edit_menu(project, project_index):
                             count4 = -1
                             for element in record:
                                 count4 += 1
-                                print("element", element)
-                                if int(element[4:]) == edit and element[:2] == new_note:
-                                    if replace == "_":
-                                        new_project_record.append(f"{new_note}.{edit}")
-                                    elif replace == " ":
+                                print("element", edit, element[3:], new_note, element[:2])
+
+                                if replace == " ":
+                                    if int(element[3:]) == edit and element[:2] == new_note:
                                         pass
                                     else:
                                         new_project_record.append(element)
+
+                                elif replace == "_":
+                                    new_project_record.append(element)
+                            new_project_record.append(f"{new_note}.{edit}")
                             new_project_recordings.append(new_project_record)
+                        else:
+                            new_project_recordings.append(record)
+                        print("new peojecn redcornd", new_project_record)
+
+                    project_recordings = new_project_recordings
+
+
+                    print("edit done")
+                    print("<", project_index, ">", "<", project_name, ">",  "<", project_length, ">",  "<", project_tempo, ">",  "<", project_instruments, ">",  "<", new_project_recordings, ">")
                     save_project(project_index, project_name, project_length, project_tempo, project_instruments, new_project_recordings)
                     load_project(project_index)
+
+        while menu == 3:
+            
+            names = []
+            instruments = []
+            print(multisounds)
+            for instrument in multisounds:
+                print(instrument.get_name())
+                instruments.append(instrument)
+                names.append(instrument.get_name().lower())
+            
+            for instrument in sounds:
+                print(instrument.get_name())
+                instruments.append(instrument)
+                names.append(instrument.get_name().lower())
+
+            new_instrument = ""
+
+            while new_instrument.lower() not in names:
+                new_instrument = input("choice: ")
+
+            for instrument in instruments:
+                print(instrument.get_name())
+                if new_instrument.lower() == instrument.get_name().lower():
+                    project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(project_index)
+                    project_instruments.append(instrument.get_name())
+                    project_recordings.append([])
+            
+            save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings)
+            menu = 2
+
 
 
 
@@ -408,7 +473,6 @@ def main_menu():
         project_index = input("project: ")
         project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(project_index)
         project = projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings)
-        open_project(project)
         edit_menu(project, project_index)
 
 def main():
