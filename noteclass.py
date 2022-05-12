@@ -23,3 +23,6 @@ class Note:
     def get_sound(self):
         return self.sound
 
+    def get_type(self):
+        return "note"
+

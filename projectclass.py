@@ -26,7 +26,7 @@ class Project:
     def __str__(self):
         return f"{self.name}\nlength: {self.length}   tempo: {self.tempo}"
 
-    def show_project(self):
+    def show_project(self):                             # The layout overview of the project
         string = ""
 
         multisound = False
@@ -54,13 +54,15 @@ class Project:
 
         refined_record = ""
         count = -1
-        for x in self.recordings:
+        for record in self.recordings:
+            if record == [""]:
+                break
             list_to_string = ""
             count += 1
 
-            string += f"{self.instruments[count]}:\n-------------------------------------------------------------------------------\n"
+            string += f"{self.instruments[count]}:\n--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*\n"
 
-            for w in x:
+            for w in record:
                 list_to_string = list_to_string + w
 
             for q in list_to_string:
@@ -73,7 +75,7 @@ class Project:
                 else:
                     sound = True
             if multisound == True:
-                for y in x:
+                for y in record:
                     if y[:2] == "a1":
                         a1 = a1[: (int(y[3:])-1) ] + "_" + a1[ (int(y[3:])) :]
                     if y[:2] == "b1":
@@ -102,13 +104,12 @@ class Project:
                         f2 = f2[: (int(y[3:])-1) ] + "_" + f2[ (int(y[3:])) :]
                     if y[:2] == "g2":
                         g2 = g2[: (int(y[3:])-1) ] + "_" + g2[ (int(y[3:])) :]
-                refined_record = f"{g1}\n{f1}\n{e1}\n{d1}\n{c1}\n{b1}\n{a1}\n{g2}\n{f2}\n{e2}\n{d2}\n{c2}\n{b2}\n{a2}\n-------------------------------------------------------------------------------\n"
+                refined_record = f"{g1}\n{f1}\n{e1}\n{d1}\n{c1}\n{b1}\n{a1}\n{g2}\n{f2}\n{e2}\n{d2}\n{c2}\n{b2}\n{a2}\n\n--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*\n"
             
             elif sound == True:
-                for y in x:
-                    print(x, y)
+                for y in record:
                     beat = beat[: (int(y)-1) ] + "_" + beat[ (int(y)) :]
-                refined_record = f"{beat}\n-------------------------------------------------------------------------------\n"
+                refined_record = f"{beat}\n\n--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*\n"
             
             string += refined_record
             a1 = (" ") * self.length + "."

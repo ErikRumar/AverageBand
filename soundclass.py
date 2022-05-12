@@ -19,3 +19,6 @@ class Sound:
         
     def get_name(self):
         return self.name
+
+    def get_type(self):
+        return "sound"

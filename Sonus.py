@@ -10,11 +10,13 @@ import multiprocessing
 
 global sounds
 global multisounds
+global projects
 
 sounds = []
 multisounds = []
 instruments = []
 notes = []
+projects = []
 
 
 
@@ -25,6 +27,7 @@ def tempo_to_sec(tempo):
 def load_files():
     global sounds
     global multisounds
+    global projects
 
     sounds = []
     multisounds = []
@@ -112,6 +115,19 @@ def load_files():
                 if two_of_them >= 2:
                     string = ""
                     two_of_them = 0
+    
+    project_list = []
+    with open("projects.txt", "r", encoding= "utf8") as projects_file:
+        index = ""
+        for x in projects_file.read():
+            if x == "/":
+                project_list.append(index)
+                index = ""
+            index += x
+    
+    for p in project_list:
+        project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(p)
+        projects.append(projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings))
 
 
 def check_int(string):
@@ -161,6 +177,16 @@ i-{project_instruments}
     records = ""
 
     for record in project_recordings:
+        count = 0
+        for x in record:
+            count = 0
+            for y in record:                                                               # looking for duplicates
+                if y == x:
+                    count += 1
+                    if count >= 2:
+                        record.remove(x)
+        if record == "":
+            new_recording = "/"
         new_recording = ""
         for element in record:
             new_recording = new_recording + element + "/"
@@ -245,19 +271,80 @@ def load_project(project_index):
     return project_name, project_length, project_tempo, project_instruments, project_recordings
 
 def list_of_projects():
-    pass
+    global projects
 
-def open_project(project):
+    list1 = []
+    for project in projects:
+        list1.append(project)
+
+    list2 = []
+
+    with open("projects.txt", "r", encoding= "utf8") as file:
+        string = file.read()
+        list2 = string.split("/")
+
+    if "" in list2:
+        list2.remove("")
+
+    return list2, list1
+
+def open_project(project):                              # shows project
     print("\nopen", project)
     print(project.show_project())
 
 def edit_menu(project, project_index):
     global multisounds
     global sounds
-    menu = 1
+    print("here it is")
+    print(project.recordings)
     print("Overlook Menu\n")
+    menu = 0
 
+    choice = "nwsfek"
     while True:
+
+        while menu == 0:
+            while choice.lower() != "n" and choice.lower() != "t" and choice.lower() != "l" and choice.lower() != "i" and choice.lower() != "":
+                choice = input("(n)ame or (t)empo or (l)ength or (i)nstruments (nothing to return): ")
+
+            project_name = project.name
+            project_length =project.length
+            project_tempo =project.tempo
+            project_instruments =project.instruments
+            project_recordings =project.recordings
+            
+
+            if choice.lower() == "n":
+                project_name = input("name: ")
+
+            if choice.lower() == "t":
+                tempo = ""
+                while check_int(tempo) != True:
+                    tempo = input("tempo: ")
+                    if tempo <= 0:
+                        name = ""
+                project_tempo = int(tempo)
+                
+            if choice.lower() == "l":
+                length = ""
+                while check_int(length) != True:
+                    tempo = input("length: ")
+                    if length <= 0:
+                        length = ""
+                project_length = int(length)
+            
+            if choice.lower() == "i":
+                menu = 1
+            if choice.lower() == "":
+                main_menu()
+
+            save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings)
+            project.name = project_name
+            project.length = project_length
+            project.tempo = project_tempo
+            project.instruments = project_instruments
+            project.recordings = project_recordings
+
         while menu == 1:
             open_project(project)
             choice = input("(p)lay or (e)dit, (nothing to return): ")
@@ -267,11 +354,11 @@ def edit_menu(project, project_index):
                 menu = 2
                 print("Edit Menu\n")
             elif choice == "":
-                main_menu()
+                menu = 0
             else:
                 print("error")
                 time.sleep(0.5)
-        
+
         while menu == 2:
             open_project(project)
             choice = input("choose instrument, (n)ew (nothing to return): ")
@@ -283,6 +370,8 @@ def edit_menu(project, project_index):
                 print("Instrument Menu\n")
             else:
                 for instrument in project.instruments:
+                    sound1 = False
+                    multisound = False
                     if choice.lower() == instrument.lower():
                         edit = ""
                         replace = ""
@@ -292,9 +381,16 @@ def edit_menu(project, project_index):
                         edit = int(edit)
                         while not (replace == " " or replace == "_"):
                             replace = input("replacement: ")
-                        while  (new_note.lower() != "a1" and new_note.lower() != "b1" and new_note.lower() != "c1" and new_note.lower() != "d1" and new_note.lower() != "e1" and new_note.lower() != "f1" and new_note.lower() != "g1" and new_note.lower() != "a2" and new_note.lower() != "b2" and new_note.lower() != "c2" and new_note.lower() != "d2" and new_note.lower() != "e2" and new_note.lower() != "f2" and new_note.lower() != "g2"):
-                            new_note = input("note: ")
-                        new_note = new_note.lower()
+                        for x in multisounds:                                                                                               # note is only necessary for multisounds
+                            sound1 = True
+                            multisound1 = False
+                            if instrument == x.get_name():
+                                multisound1 = True
+                                break
+                        if multisound1 == True:
+                            while  (new_note.lower() != "a1" and new_note.lower() != "b1" and new_note.lower() != "c1" and new_note.lower() != "d1" and new_note.lower() != "e1" and new_note.lower() != "f1" and new_note.lower() != "g1" and new_note.lower() != "a2" and new_note.lower() != "b2" and new_note.lower() != "c2" and new_note.lower() != "d2" and new_note.lower() != "e2" and new_note.lower() != "f2" and new_note.lower() != "g2"):
+                                new_note = input("note: ")
+                            new_note = new_note.lower()
 
 
                 with open(f"{project_index}.txt", "r", encoding = "utf8") as project_txt:
@@ -381,31 +477,49 @@ def edit_menu(project, project_index):
                     count3 = -1
                     for record in project_recordings:
                         count3 += 1
+
+
+                        for x in multisounds:                                                                                               # check if record is multisound or not
+                            sound = True
+                            multisound = False
+                            if project.instruments[count3] == x.get_name():
+                                multisound = True
+                                sound = False
+                                break
+
                         if instrument_index == count3:
                             count4 = -1
                             for element in record:
                                 count4 += 1
-                                print("element", edit, element[3:], new_note, element[:2])
 
                                 if replace == " ":
-                                    if int(element[3:]) == edit and element[:2] == new_note:
-                                        pass
-                                    else:
-                                        new_project_record.append(element)
+                                    print(element)
+                                    if multisound == True:
+                                        if int(element[3:]) == edit and element[:2] == new_note:
+                                            pass
+                                        else:
+                                            new_project_record.append(element)
+                                    elif sound == True:
+                                        if int(element) == edit :
+                                            pass
+                                        else:
+                                            new_project_record.append(element)
+                                    print(new_project_record)
 
                                 elif replace == "_":
                                     new_project_record.append(element)
-                            new_project_record.append(f"{new_note}.{edit}")
+                            if multisound == True and replace != " ":
+                                new_project_record.append(f"{new_note}.{edit}")
+                            elif sound == True and replace != " ":
+                                new_project_record.append(f"{edit}")
                             new_project_recordings.append(new_project_record)
                         else:
                             new_project_recordings.append(record)
-                        print("new peojecn redcornd", new_project_record)
 
                     project_recordings = new_project_recordings
 
 
                     print("edit done")
-                    print("<", project_index, ">", "<", project_name, ">",  "<", project_length, ">",  "<", project_tempo, ">",  "<", project_instruments, ">",  "<", new_project_recordings, ">")
                     save_project(project_index, project_name, project_length, project_tempo, project_instruments, new_project_recordings)
                     load_project(project_index)
 
@@ -413,8 +527,7 @@ def edit_menu(project, project_index):
             
             names = []
             instruments = []
-            print(multisounds)
-            for instrument in multisounds:
+            for instrument in multisounds:                          # list of sounds
                 print(instrument.get_name())
                 instruments.append(instrument)
                 names.append(instrument.get_name().lower())
@@ -428,15 +541,24 @@ def edit_menu(project, project_index):
 
             while new_instrument.lower() not in names:
                 new_instrument = input("choice: ")
-
             for instrument in instruments:
-                print(instrument.get_name())
                 if new_instrument.lower() == instrument.get_name().lower():
                     project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(project_index)
                     project_instruments.append(instrument.get_name())
-                    project_recordings.append([])
+                    project_recordings.append([""])
             
             save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings)
+            project.name = project_name
+            project.length = project_length
+            project.tempo = project_tempo
+            project.instruments = project_instruments
+            project.recordings = project_recordings
+            with open(f"projects.txt", "r", encoding= "utf8") as file:
+                list = file.read()
+            list = list + project_index + "/"
+            
+            with open(f"projects.txt", "w", encoding= "utf8") as file:
+                file.write(list)
             menu = 2
 
 
@@ -468,9 +590,23 @@ def main_menu():
             choice = input("")
     
     if int(choice) == 1:
-        edit_menu(True)
+        project_list, printlist = list_of_projects()
+        print("here---------------->", project_list, project_list[len(project_list)-1], project_list[len(project_list)-1][7:8])
+        new_project_index = "project" + str((int(project_list[len(project_list)-1][7:8])+1))
+        save_project(new_project_index, "Untitled", 64, 120, [], [])
+        project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(new_project_index)
+        projects.append(projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings))
+        open_project(projects[len(projects)-1])
+        edit_menu(projects[len(projects)-1], new_project_index)
     if int(choice) ==2:
-        project_index = input("project: ")
+
+        project_list, printlist = list_of_projects()
+        for x in printlist:
+            print(x)
+
+        project_index = " "
+        while project_index.lower() not in project_list:
+            project_index = input("project: ")
         project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(project_index)
         project = projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings)
         edit_menu(project, project_index)
