@@ -55,10 +55,16 @@ Usage
 
 ***Great way to introduce yourself to a simple music program, playing around and learning the basics. It is popular for children between the ages of 8-14***
 
+![Skärmklipp](https://user-images.githubusercontent.com/96128314/168275024-68039872-0f55-4ea0-af02-0114051f5a14.PNG)
+
+![Skärmklipp2](https://user-images.githubusercontent.com/96128314/168275213-7da2ecf0-2252-4a64-9ad1-9920a03cdc87.PNG)
+
+
 Roadmap
 -----------------------------
 
 -   [ ] Save project as audiofile
+-   [ ] Right now You have to go to main menu for the graphical representation of the project to update, need fix
 -   [ ] effects
 -   [ ] More sounds
 -   [ ] Further languages
