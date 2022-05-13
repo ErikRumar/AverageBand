@@ -1,7 +1,7 @@
 Sonus
 ============================================
 
-Description (Beskrivning)
+Description
 -------------------------
 
 ***Sonus is a limited music making program for beginners written in python code***
@@ -10,7 +10,7 @@ Description (Beskrivning)
 Technology
 -----------------------------------------------------------------------
 
-***Python is the only used code language, with imports; 
+Python is the only used code language, with imports; 
 time
 playsound
 multiprocessing
@@ -27,39 +27,25 @@ Requirements/Prerequisites
 Installation
 ------------
 
-1.  Klona repot
+1.  CLone repository
 
 ``` {.cmd}
-    git clone https://github.com/ditt_anv/reponamn
+    git clone https://github.com/ErikRumar/Sonus
 ```
 
-2.  Installera playsound
+2.  Install playsound
 
-``` {.cmd}
+```cmd
 pip install playsound
 ```
 
-3.  Installera multiprocessing
+3.  Install multiprocessing
 
 ``` {.cmd}
 pip install multiprocessing
 ```
 
-Exempel 2:
-
-This project has been tested on Python 3.7+. To install Python you can
-visit (https://www.python.org/downloads/)
-
-The program also requires that the library playound as well as multiprocessing is
-installed. To install, you need python 3.7+ installed, followed by
-that the following lines of code are written in the terminal:
-
-``` {.cmd}
-pip install playsound
-pip install multiprocessing
-```
-
-Code conventions (Kodkonvention)
+Code conventions
 --------------------------------
 
 ***PEP-8 is used***
@@ -69,16 +55,8 @@ Usage
 
 ***Great way to introduce yourself to a simple music program, playing around and learning the basics. It is popular for children between the ages of 8-14***
 
-Example
-------------------------
-
-***Visa gärna, genom ett kodblock från din konsol, eller en bild, hur en
-exempelkörning kan gå till.***
-
 Roadmap
 -----------------------------
- gärna genom en lista där
-färdiga saker strukits över.*** Exempel:
 
 -   [ ] Save project as audiofile
 -   [ ] effects
@@ -130,7 +108,7 @@ Contact
 -----------------
 
 
-Erik Rumar Valeskog - errikv#1322 -
+Erik Rumar Valeskog - discord-errikv#1322 -
 erik.rumarvaleskog@elev.ntig.ga.se
 
 Project link: https://github.com/ErikRumar/Sonus
