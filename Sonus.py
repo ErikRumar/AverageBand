@@ -123,6 +123,7 @@ def load_files():
             if x == "/":
                 project_list.append(index)
                 index = ""
+                x = ""
             index += x
     
     for p in project_list:
@@ -295,8 +296,6 @@ def open_project(project):                              # shows project
 def edit_menu(project, project_index):
     global multisounds
     global sounds
-    print("here it is")
-    print(project.recordings)
     print("Overlook Menu\n")
     menu = 0
 
@@ -591,7 +590,6 @@ def main_menu():
     
     if int(choice) == 1:
         project_list, printlist = list_of_projects()
-        print("here---------------->", project_list, project_list[len(project_list)-1], project_list[len(project_list)-1][7:8])
         new_project_index = "project" + str((int(project_list[len(project_list)-1][7:8])+1))
         save_project(new_project_index, "Untitled", 64, 120, [], [])
         project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(new_project_index)
@@ -601,8 +599,10 @@ def main_menu():
     if int(choice) ==2:
 
         project_list, printlist = list_of_projects()
+        count = -1
         for x in printlist:
-            print(x)
+            count += 1
+            print(f"project{count}: {x}\n")
 
         project_index = " "
         while project_index.lower() not in project_list:
@@ -618,11 +618,6 @@ def main():
     load_files()
     projectclass.multisounds = multisounds
     projectclass.sounds = sounds
-    # for y in sounds:
-    #     print(y, ":::")
-    # print("\n")
-    # for x in multisounds:
-    #     print(x, ":::")
     main_menu()
 
 
