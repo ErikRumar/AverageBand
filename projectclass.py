@@ -131,7 +131,7 @@ class Project:
             refined_record = ""
         return string
 
-    def play_project(self):
+    def play_project(self):                             # Playing the project bar for bar checking what should be playing
         global sounds
         global multisounds
         
@@ -213,19 +213,10 @@ class Project:
                 beats = False
             time.sleep(Sonus.tempo_to_sec(self.tempo))
             print("\n\n")
-
-
-
     
     def get_name(self):
         return self.name
 
-
-#    def synchronize():
-#         global sounds
-#         global multisounds
-#         sounds = Sonus.sounds
-#         multisounds = Sonus.multisounds 
 
 
 

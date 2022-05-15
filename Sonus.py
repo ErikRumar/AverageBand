@@ -20,11 +20,11 @@ projects = []
 
 
 
-def tempo_to_sec(tempo):
+def tempo_to_sec(tempo):                    # A function to turn the tempo in bpm to seconds each bar should be playing
     tempo = int(tempo)
     return 1 / (float(tempo/ 60))
 
-def load_files():
+def load_files():                           # A function that makes all the instrument objects from the file files.txt
     global sounds
     global multisounds
     global projects
@@ -131,7 +131,7 @@ def load_files():
         projects.append(projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings))
 
 
-def check_int(string):
+def check_int(string):                      # A simple function to check if the given argument is a string for bug controllers
     string = str(string)
     if string == "":
         bool = False
@@ -145,7 +145,7 @@ def check_int(string):
     bool = True
     return bool
 
-def string_to_list(string):
+def string_to_list(string):                 # Gives a list out of a given string looking identically like a list- e.g. ['EPiano', 'bassdrum1']
     element = ""
     list = []
     two_of_them = 0
@@ -166,7 +166,7 @@ def string_to_list(string):
 
     return list
 
-def save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings):
+def save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings):          #Saves the project in its own file- project{project_index}.txt
 
 
     string = (f"""n-{project_name}
@@ -199,7 +199,7 @@ i-{project_instruments}
         file.write(string)
 
 
-def load_project(project_index):
+def load_project(project_index):            # Reads the projects file and return all the projects information, listed down by the return
     
     with open(f"{project_index}.txt", "r") as file:
         project_name = ""
@@ -271,7 +271,7 @@ def load_project(project_index):
 
     return project_name, project_length, project_tempo, project_instruments, project_recordings
 
-def list_of_projects():
+def list_of_projects():                     # Reads all project_index listed in projects.txt and gives list2, all project_index(es) existing, and list1 a list of all projects as classes
     global projects
 
     list1 = []
@@ -289,11 +289,11 @@ def list_of_projects():
 
     return list2, list1
 
-def open_project(project):                              # shows project
+def open_project(project):                  # shows project basic informatiom, and its recordings
     print("\nopen", project)
     print(project.show_project())
 
-def edit_menu(project, project_index):
+def edit_menu(project, project_index):      # The editing menu for a project, where the different menu values represent a different state of editing
     global multisounds
     global sounds
     print("Overlook Menu\n")
@@ -302,7 +302,7 @@ def edit_menu(project, project_index):
     choice = "nwsfek"
     while True:
 
-        while menu == 0:
+        while menu == 0:                    # Opens the possibility to change all the project's aspects
             while choice.lower() != "n" and choice.lower() != "t" and choice.lower() != "l" and choice.lower() != "i" and choice.lower() != "":
                 choice = input("(n)ame or (t)empo or (l)ength or (i)nstruments (nothing to return): ")
 
@@ -344,7 +344,7 @@ def edit_menu(project, project_index):
             project.instruments = project_instruments
             project.recordings = project_recordings
 
-        while menu == 1:
+        while menu == 1:                    # Either play the project or continue to editing
             open_project(project)
             choice = input("(p)lay or (e)dit, (nothing to return): ")
             if choice == "p":
@@ -358,7 +358,7 @@ def edit_menu(project, project_index):
                 print("error")
                 time.sleep(0.5)
 
-        while menu == 2:
+        while menu == 2:                    # Either edit instrument's notes or beats or add instrument
             open_project(project)
             choice = input("choose instrument, (n)ew (nothing to return): ")
             if choice == "":
@@ -522,7 +522,7 @@ def edit_menu(project, project_index):
                     save_project(project_index, project_name, project_length, project_tempo, project_instruments, new_project_recordings)
                     load_project(project_index)
 
-        while menu == 3:
+        while menu == 3:                    # Choosing a new instrument         
             
             names = []
             instruments = []
@@ -565,7 +565,7 @@ def edit_menu(project, project_index):
 
 
 
-def main_menu():
+def main_menu():                            # Starting menu of opening a project or creating a new one
     global sounds
     global multisounds
 
@@ -611,7 +611,7 @@ def main_menu():
         project = projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings)
         edit_menu(project, project_index)
 
-def main():
+def main():                                 # Calls all necessary functions for the program to proceed
     global multisounds
     global sounds
 
