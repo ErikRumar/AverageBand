@@ -95,6 +95,9 @@ Changelog
 
 -   Bug fixes
 
+### Version 1.1.1
+
+-   Commented code
 
 Contribution
 ------------------------
