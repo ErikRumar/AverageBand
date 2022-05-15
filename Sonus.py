@@ -322,7 +322,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                     tempo = input("tempo: ")
                     if check_int(tempo) == True:
                         tempo = int(tempo)
-                        if tempo <= 0:
+                        if tempo <= 1:
                             tempo = ""
                 project_tempo = int(tempo)
                 
@@ -364,7 +364,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                 print("error")
                 time.sleep(0.5)
 
-        while menu == 2:                    # Either edit instrument's notes or beats or add instrument
+        while menu == 2:                    # Either edit instrument's notes or beats, or add instrument
             open_project(project)
             choice = input("choose instrument, (n)ew (nothing to return): ")
             if choice == "":
@@ -381,7 +381,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                         edit = ""
                         replace = ""
                         new_note = ""
-                        while check_int(edit) != True or (int(edit) <= 0 and int(edit) >= int(project.length)):
+                        while check_int(edit) != True or (int(edit) <= 0 or int(edit) >= int(project.length)):
                             edit = input("place: ")
                         edit = int(edit)
                         while not (replace == " " or replace == "_"):
