@@ -320,16 +320,20 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                 tempo = ""
                 while check_int(tempo) != True:
                     tempo = input("tempo: ")
-                    if tempo <= 0:
-                        name = ""
+                    if check_int(tempo) == True:
+                        tempo = int(tempo)
+                        if tempo <= 0:
+                            tempo = ""
                 project_tempo = int(tempo)
                 
             if choice.lower() == "l":
                 length = ""
                 while check_int(length) != True:
-                    tempo = input("length: ")
-                    if length <= 0:
-                        length = ""
+                    length = input("length: ")
+                    if check_int(length) == True:
+                        length = int(length)
+                        if length <= 0:
+                            length = ""
                 project_length = int(length)
             
             if choice.lower() == "i":
@@ -343,6 +347,8 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
             project.tempo = project_tempo
             project.instruments = project_instruments
             project.recordings = project_recordings
+            
+            choice = "nwsfek"
 
         while menu == 1:                    # Either play the project or continue to editing
             open_project(project)
