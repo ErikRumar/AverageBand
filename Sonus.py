@@ -20,11 +20,21 @@ projects = []
 
 
 
-def tempo_to_sec(tempo):                    # A function to turn the tempo in bpm to seconds each bar should be playing
+def tempo_to_sec(tempo):
+    """A function to turn the tempo in bpm to seconds each bar should be playing
+
+    Args:
+        tempo (int): tempo for the song in bpm
+
+    Returns:
+        _int_: the time for each bar to play in seconds before moving on to the next bar
+    """
     tempo = int(tempo)
     return 1 / (float(tempo/ 60))
 
-def load_files():                           # A function that makes all the instrument objects from the file files.txt
+def load_files():
+    """A function that makes all the instrument objects from the file files.txt
+    """
     global sounds
     global multisounds
     global projects
@@ -131,7 +141,15 @@ def load_files():                           # A function that makes all the inst
         projects.append(projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings))
 
 
-def check_int(string):                      # A simple function to check if the given argument is a string for bug controllers
+def check_int(string):
+    """A simple function to check if the given argument (string) looks like an integer, e.g. "1" or "24". it's for bug controllers
+
+    Args:
+        string (string): a string 
+
+    Returns:
+        bool(boolean): True or false if the string is a 'possible' integer
+    """
     string = str(string)
     if string == "":
         bool = False
@@ -145,7 +163,15 @@ def check_int(string):                      # A simple function to check if the 
     bool = True
     return bool
 
-def string_to_list(string):                 # Gives a list out of a given string looking identically like a list- e.g. ['EPiano', 'bassdrum1']
+def string_to_list(string):
+    """Gives a list out of a given string looking identically like a list- e.g. ['EPiano', 'bassdrum1']
+
+    Args:
+        string (string): string looking identically like a list- e.g. ['EPiano', 'bassdrum1']
+
+    Returns:
+        list(list): the decoded string into a list
+    """
     element = ""
     list = []
     two_of_them = 0
@@ -199,7 +225,19 @@ i-{project_instruments}
         file.write(string)
 
 
-def load_project(project_index):            # Reads the projects file and return all the projects information, listed down by the return
+def load_project(project_index):
+    """Reads the projects file and return all the projects information, listed down by the return
+
+    Args:
+        project_index (string): the filename for the projetc's info in a file, formatted project{a number}
+
+    Returns:
+        project_name(string): the projects name
+        project_tempo(int): the projects tempo
+        project_length(int): the projects length of bars
+        project_instruments(list): list with the project's instrument names as strings
+        project_recordings(list): a list where each element is a recording for the same index element in project_instruments
+    """
     
     with open(f"{project_index}.txt", "r") as file:
         project_name = ""
@@ -271,7 +309,13 @@ def load_project(project_index):            # Reads the projects file and return
 
     return project_name, project_length, project_tempo, project_instruments, project_recordings
 
-def list_of_projects():                     # Reads all project_index listed in projects.txt and gives list2, all project_index(es) existing, and list1 a list of all projects as classes
+def list_of_projects():
+    """Reads all project_index listed in projects.txt and gives list2, all project_index(es) existing, and list1 a list of all projects as classes
+
+    Returns:
+        list2(string): list of all project_index in the file proects.txt
+        list1(list): list of all projects as their objects
+    """
     global projects
 
     list1 = []
@@ -289,11 +333,22 @@ def list_of_projects():                     # Reads all project_index listed in 
 
     return list2, list1
 
-def open_project(project):                  # shows project basic informatiom, and its recordings
+def open_project(project):
+    """shows project basic informatiom, and its recordings
+
+    Args:
+        project (Project class): the project object
+    """
     print("\nopen", project)
     print(project.show_project())
 
-def edit_menu(project, project_index):      # The editing menu for a project, where the different menu values represent a different state of editing
+def edit_menu(project, project_index):
+    """The editing menu for a project, where the different menu values represent a different state of editing
+
+    Args:
+        project (Project class): the project object
+        project_index (string): the filename for the projetc's info in a file, formatted project{a number}
+    """
     global multisounds
     global sounds
     print("Overlook Menu\n")
@@ -377,6 +432,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
             elif choice.lower() == "n":
                 menu = 3
                 print("Instrument Menu\n")
+                break
             if choice.lower() in project_instruments_lower:
                 for instrument in project.instruments:
                     sound1 = False
@@ -543,6 +599,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                 print(instrument.get_name())
                 instruments.append(instrument)
                 names.append(instrument.get_name().lower())
+
             
             for instrument in sounds:
                 print(instrument.get_name())
@@ -551,8 +608,11 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
 
             new_instrument = ""
 
-            while new_instrument.lower() not in names:
+            while new_instrument.lower() not in names and new_instrument != "#":
                 new_instrument = input("choice: ")
+            if new_instrument == "#":
+                menu = 1
+                break
             for instrument in instruments:
                 if new_instrument.lower() == instrument.get_name().lower():
                     project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(project_index)

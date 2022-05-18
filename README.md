@@ -17,7 +17,7 @@ multiprocessing
 ***
 
 
-Requirements/Prerequisites
+Requirements
 ---------------------------------
 
 -   Python 3.7+
