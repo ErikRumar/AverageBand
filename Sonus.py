@@ -369,7 +369,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
             project_instruments_lower = []
             for inst in project.instruments:
                 project_instruments_lower.append(inst.lower())
-            while choice.lower() not in project_instruments_lower:
+            while choice.lower() not in project_instruments_lower  and choice.lower() != "n" and choice != "":
                 choice = input("choose instrument, (n)ew (nothing to return): ")
             if choice == "":
                 menu = 1
@@ -377,7 +377,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
             elif choice.lower() == "n":
                 menu = 3
                 print("Instrument Menu\n")
-            else:
+            if choice.lower() in project_instruments_lower:
                 for instrument in project.instruments:
                     sound1 = False
                     multisound = False
@@ -533,6 +533,7 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                     project.tempo = project_tempo
                     project.instruments = project_instruments
                     project.recordings = new_project_recordings
+            menu = 1
 
         while menu == 3:                    # Choosing a new instrument         
             
