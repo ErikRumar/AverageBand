@@ -366,7 +366,11 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
 
         while menu == 2:                    # Either edit instrument's notes or beats, or add instrument
             open_project(project)
-            choice = input("choose instrument, (n)ew (nothing to return): ")
+            project_instruments_lower = []
+            for inst in project.instruments:
+                project_instruments_lower.append(inst.lower())
+            while choice.lower() not in project_instruments_lower:
+                choice = input("choose instrument, (n)ew (nothing to return): ")
             if choice == "":
                 menu = 1
                 print("Overlook Menu\n")
@@ -498,7 +502,6 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                                 count4 += 1
 
                                 if replace == " ":
-                                    print(element)
                                     if multisound == True:
                                         if int(element[3:]) == edit and element[:2] == new_note:
                                             pass
@@ -509,7 +512,6 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
                                             pass
                                         else:
                                             new_project_record.append(element)
-                                    print(new_project_record)
 
                                 elif replace == "_":
                                     new_project_record.append(element)
@@ -526,7 +528,11 @@ def edit_menu(project, project_index):      # The editing menu for a project, wh
 
                     print("edit done")
                     save_project(project_index, project_name, project_length, project_tempo, project_instruments, new_project_recordings)
-                    load_project(project_index)
+                    project.name = project_name
+                    project.length = project_length
+                    project.tempo = project_tempo
+                    project.instruments = project_instruments
+                    project.recordings = new_project_recordings
 
         while menu == 3:                    # Choosing a new instrument         
             

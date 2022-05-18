@@ -64,7 +64,6 @@ Roadmap
 -----------------------------
 
 -   [ ] Save project as audiofile
--   [ ] Right now You have to go to main menu for the graphical representation of the project to update, need fix
 -   [ ] effects
 -   [ ] More sounds
 -   [ ] Further languages
@@ -98,6 +97,7 @@ Changelog
 ### Version 1.1.1
 
 -   Commented code
+-   Bug fixes
 
 Contribution
 ------------------------
