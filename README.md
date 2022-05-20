@@ -29,7 +29,7 @@ Installation
 
 1.  CLone repository
 
-``` {.cmd}
+```
     git clone https://github.com/ErikRumar/Sonus
 ```
 
@@ -41,7 +41,7 @@ pip install playsound
 
 3.  Install multiprocessing
 
-``` {.cmd}
+```cmd
 pip install multiprocessing
 ```
 
