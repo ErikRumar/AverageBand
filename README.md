@@ -66,6 +66,7 @@ Roadmap
 -   [ ] Save project as audiofile
 -   [ ] effects
 -   [ ] More sounds
+-   [ ] Delete projects
 -   [ ] Further languages
     -   [ ] Svenska
     -   [ ] Soumalainen

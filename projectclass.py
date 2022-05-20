@@ -26,7 +26,12 @@ class Project:
     def __str__(self):
         return f"{self.name}\nlength: {self.length}   tempo: {self.tempo}"
 
-    def show_project(self):                             # The layout overview of the project
+    def show_project(self):
+        """The layout overview of the project
+
+        Returns:
+            string: the layout of the project to be printed
+        """
         string = ""
 
         multisound = False
@@ -107,6 +112,7 @@ class Project:
                 refined_record = f"g1{g1}\nf1{f1}\ne1{e1}\nd1{d1}\nc1{c1}\nb1{b1}\na1{a1}\ng2{g2}\nf2{f2}\ne2{e2}\nd2{d2}\nc2{c2}\nb2{b2}\na2{a2}\n\n-*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*\n"
             
             elif sound == True:
+                refined_record = ""
                 for y in record:
                     beat = beat[: (int(y)-1) ] + "_" + beat[ (int(y)) :]
                 refined_record = f"{self.instruments[count][:2]}{beat}\n\n-*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*\n"
@@ -131,7 +137,9 @@ class Project:
             refined_record = ""
         return string
 
-    def play_project(self):                             # Playing the project bar for bar checking what should be playing
+    def play_project(self):
+        """Playing the project bar for bar checking what should be playing
+        """
         global sounds
         global multisounds
         

@@ -5,7 +5,7 @@ from pygame import mixer
 import multiprocessing
 
 
-class Note:                                 # This is the noteclass that are a part of a multisound
+class Note:
 
     def __init__(self, name, sound):
         self.name = name

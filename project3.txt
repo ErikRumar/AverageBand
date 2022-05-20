@@ -1,0 +1,7 @@
+n-Sicko mode
+l-64
+t-120
+i-['snare1', 'bassdrum2', 'EPiano']
+r-
+r-1/
+r-a1.1/

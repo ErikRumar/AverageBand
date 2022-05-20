@@ -5,7 +5,7 @@ from pygame import mixer
 from noteclass import Note
 
 
-class MultiSound:                               # This is the MultiSound class for instruments with multiple sounds, like pianos
+class MultiSound:
 
     def __init__(self, name, notes):
         self.name = name
@@ -15,6 +15,11 @@ class MultiSound:                               # This is the MultiSound class f
         return f"multisound name {self.name} multisound notes {self.notes}"
 
     def play(self, note):
+        """plays the given 'note' of the multisound
+
+        Args:
+            note (string): the note to be played
+        """
 
         for x in self.notes:
             if note == x.get_name()[len(x.get_name())-2:]:

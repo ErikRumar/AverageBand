@@ -6,7 +6,7 @@ from pygame import mixer
 
 class Sound:
 
-    def __init__(self, name, category, sound):                  # This is the 'single' sound class with only one type of sound, like drums have
+    def __init__(self, name, category, sound):
         self.name = name
         self.category = category
         self.sound = sound

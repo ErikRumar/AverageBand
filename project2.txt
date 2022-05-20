@@ -3,6 +3,6 @@ l-64
 t-120
 i-['EPiano', 'clap1', 'bassdrum1', 'hihat1']
 r-a1.2/
-r-
+r-1/
 r-
 r-2/

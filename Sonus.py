@@ -192,8 +192,17 @@ def string_to_list(string):
 
     return list
 
-def save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings):          #Saves the project in its own file- project{project_index}.txt
+def save_project(project_index, project_name, project_length, project_tempo, project_instruments, project_recordings):
+    """Writing down the project's information in the file project{project_index}.txt
 
+    Args:
+        project_name(string): the projects name
+        project_tempo(int): the projects tempo
+        project_length(int): the projects length of bars
+        project_instruments(list): list with the project's instrument names as strings
+        project_recordings(list): a list where each element is a recording for the same index element in project_instruments
+    """
+    
 
     string = (f"""n-{project_name}
 l-{project_length}
@@ -313,7 +322,7 @@ def list_of_projects():
     """Reads all project_index listed in projects.txt and gives list2, all project_index(es) existing, and list1 a list of all projects as classes
 
     Returns:
-        list2(string): list of all project_index in the file proects.txt
+        list2(string): list of all project_index in the file projects.txt
         list1(list): list of all projects as their objects
     """
     global projects
@@ -351,13 +360,14 @@ def edit_menu(project, project_index):
     """
     global multisounds
     global sounds
+    global projects
     print("Overlook Menu\n")
     menu = 0
 
     choice = "nwsfek"
     while True:
 
-        while menu == 0:                    # Opens the possibility to change all the project's aspects
+        while menu == 0:                    # Opens the possibility to change all the project's attributes
             while choice.lower() != "n" and choice.lower() != "t" and choice.lower() != "l" and choice.lower() != "i" and choice.lower() != "":
                 choice = input("(n)ame or (t)empo or (l)ength or (i)nstruments (nothing to return): ")
 
@@ -402,7 +412,9 @@ def edit_menu(project, project_index):
             project.tempo = project_tempo
             project.instruments = project_instruments
             project.recordings = project_recordings
-            
+
+            projects[int(project_index[7:8])] = project
+
             choice = "nwsfek"
 
         while menu == 1:                    # Either play the project or continue to editing
@@ -608,9 +620,9 @@ def edit_menu(project, project_index):
 
             new_instrument = ""
 
-            while new_instrument.lower() not in names and new_instrument != "#":
-                new_instrument = input("choice: ")
-            if new_instrument == "#":
+            while new_instrument.lower() not in names and new_instrument != "":
+                new_instrument = input("choice (nothing to return): ")
+            if new_instrument == "":
                 menu = 1
                 break
             for instrument in instruments:
@@ -638,7 +650,10 @@ def edit_menu(project, project_index):
 
 
 
-def main_menu():                            # Starting menu of opening a project or creating a new one
+def main_menu():
+    """Starting menu of opening a project or creating a new one
+    """
+    
     global sounds
     global multisounds
 
@@ -667,11 +682,13 @@ def main_menu():                            # Starting menu of opening a project
         save_project(new_project_index, "Untitled", 64, 120, [], [])
         project_name, project_length, project_tempo, project_instruments, project_recordings = load_project(new_project_index)
         projects.append(projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings))
+        with open("projects.txt", "a", encoding= "utf8") as file:
+            file.write(f"project{new_project_index[7:8]}/")
         open_project(projects[len(projects)-1])
         edit_menu(projects[len(projects)-1], new_project_index)
     if int(choice) ==2:
 
-        project_list, printlist = list_of_projects()
+        project_list, printlist = list_of_projects()                        # Showing all projects to choose from, by their project_index
         count = -1
         for x in printlist:
             count += 1
@@ -684,7 +701,9 @@ def main_menu():                            # Starting menu of opening a project
         project = projectclass.Project(project_name, project_length, project_tempo, project_instruments, project_recordings)
         edit_menu(project, project_index)
 
-def main():                                 # Calls all necessary functions for the program to proceed
+def main():
+    """Calls all necessary functions for the program to proceed
+    """
     global multisounds
     global sounds
 
